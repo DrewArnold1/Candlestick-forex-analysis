@@ -5,15 +5,15 @@ calcSandR = function(fx) {
            resistance = ifelse(high > lag(high) & high > lead(high) &
                                  high > lag(high,2) & high > lead(high,2),TRUE,FALSE),
            turningPoint = ifelse(support, low, ifelse(resistance, high, NA)))
-  fx$runningSR = createLaggedSR(fx$turningPoint)
-  #   weights = fx %>%
-  #     select(time, turningPoint) %>%
-  #     filter(!is.na(turningPoint))
-  #   
-  #   temp = weights$turningPoint
-  #   weights$weight = sapply(weights$turningPoint, calcWeight, temp)
-  #   fx = left_join(fx, weights)
-  #   
+  #fx$runningSR = createLaggedSR(fx$turningPoint)
+    weights = fx %>%
+      select(time, turningPoint) %>%
+      filter(!is.na(turningPoint))
+    
+    temp = weights$turningPoint
+    weights$weight = sapply(weights$turningPoint, calcWeight, temp)
+    fx = left_join(fx, weights)
+    
   return(fx)
 }
 
